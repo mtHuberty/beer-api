@@ -1,7 +1,9 @@
 const express = require('express');
-const app = express();
-const beerRouter = require('./routes/beerRouter');
 const mongoose = require('mongoose');
+const beerRouter = require('./routes/beerRouter');
+
+const app = express();
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
