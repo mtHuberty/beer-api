@@ -10,9 +10,10 @@ beerRouter.post('/', (req, res) => {
     beer.rating = req.body.rating;
     beer.save((err, document) => {
         if (err) {
-            res.status(400).send(err);
+            res.status(400);
+            res.send(err);
         } else {
-            res.status(200).send(`Saved your ${document}`);
+            res.send(`Saved your ${document}`);
         }
     });
 });
@@ -21,6 +22,7 @@ beerRouter.post('/', (req, res) => {
 beerRouter.get('/', (req, res) => {
     Beer.find((err, beers) => {
         if (err) {
+            res.status(400);
             res.send(err);
         } else {
             res.json(beers);
@@ -44,16 +46,19 @@ beerRouter.get('/:beer_id', (req, res) => {
 beerRouter.put('/:beer_id', (req, res) => {
     Beer.findById(req.params.beer_id, (err, beer) => {
         if (err) {
-            res.send(err)
+            res.status(400);
+            res.send(err);
         } else {
             beer.name = req.body.name
             beer.rating = req.body.rating
      
             beer.save((err, document) => {
                 if (err) {
-                    res.status(400).send(err)
+                    res.status(400);
+                    res.send(err);
                 } else {
-                    res.status(200).send(`Beer posted!\n${document}`)
+                    res.status(200);
+                    res.send(`Beer posted!\n${document}`);
                 }
             })
         }
@@ -66,9 +71,10 @@ beerRouter.put('/:beer_id', (req, res) => {
         _id: req.params.beer_id
     }, (err) => {
         if (err) {
-            res.send(err)
+            res.status(400);
+            res.send(err);
         } else {
-            res.send('You successfully deleted beer: ' + req.params.beer_id)
+            res.send('You successfully deleted beer: ' + req.params.beer_id);
         }
     })
  })
